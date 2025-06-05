@@ -1,0 +1,21 @@
+{
+  "name": "desafio-tecnico",
+  "version": "1.0.0",
+  "description": "Desafio tecnico: - analisar um log de um jogo e disponibilizar isso via api, colocar ele num banco de dados (mongoDb)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "test": ""
+  },
+  "author": "Bruno de Andrade Dinis",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.15.29",
+    "eslint": "^9.28.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

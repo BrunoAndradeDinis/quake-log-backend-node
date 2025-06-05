@@ -1,0 +1,3 @@
+analisar um log de um jogo e disponibilizar isso via api
+como extra, coloquei para ele armazenar dentro de um banco de dados
+coloquei como sugestão o mongodb
