@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import readline from "readline";
 
 // Interfaces
@@ -97,7 +98,6 @@ class LogParser {
 
     this.currentGame.total_kills++;
 
-
     if (killer !== "<world>" && !this.currentGame.players.includes(killer)) {
       this.currentGame.players.push(killer);
     }
@@ -116,11 +116,10 @@ class LogParser {
 
   private finalizeGame(): void {
     if (this.currentGame) {
-
       this.games[`game_${this.currentGameId}`] = {
         total_kills: this.currentGame.total_kills,
-        players: [...this.currentGame.players], 
-        kills: { ...this.currentGame.kills }, 
+        players: [...this.currentGame.players],
+        kills: { ...this.currentGame.kills },
       };
 
       this.currentGameId++;
@@ -130,11 +129,20 @@ class LogParser {
   }
 }
 
-const parser = new LogParser();
+const app = async () => {
+  try {
+    const parser = new LogParser();
 
-parser.parseLogFile("./src/games.log").then((games) => {
-  console.log(games);
-});
+    const games = await parser.parseLogFile(
+      path.join(process.cwd(), "./src/games.log")
+    );
 
+    console.log("LogParser: ", games);
+    console.log("--------------------------------");
+    console.log("Primeiro jogo: ", Object.keys(games)[0], ":", games["game_1"]);
+  } catch (error) {
+    console.log("Erro ao processar o arquivo: ", error);
+  }
+};
 
-
+app();
