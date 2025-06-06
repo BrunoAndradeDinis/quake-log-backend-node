@@ -51,3 +51,6 @@ Para cada jogo o parser deve gerar algo como:
 1. Armazene os eventos do jogo dentro de um banco de dados (de preferência ao mongodb, crie seed e migration), possibilitando a consulta via API. (crie uma rota diferente para consulta)
 
 HAVE FUN :)
+
+# Task 1: [x]
+# Task 2: [ ]
