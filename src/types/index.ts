@@ -1,4 +1,3 @@
-  // Interfaces
 interface Kill {
   killer: string;
   victim: string;
