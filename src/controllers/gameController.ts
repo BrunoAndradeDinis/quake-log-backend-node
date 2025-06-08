@@ -27,10 +27,10 @@ export class GameController {
 
   static async getGameById(req: Request, res: Response): Promise<void> {
     try {
-      const { gameId } = req.params;
-      const game = await GameService.getGameById(
-        gameId.startsWith("game_") ? gameId : `game_${gameId}`
-      );
+      const id = req.params.id;
+      const gameId = id.startsWith("game_") ? id : `game_${id}`;
+
+      const game = await GameService.getGameById(gameId);
 
       if (!game) {
         res.status(404).json({ erro: "Jogo não encontrado" });

@@ -92,6 +92,9 @@ export class LogParser {
     if (killer === "<world>") {
       this.currentGame.kills[victim] =
         (this.currentGame.kills[victim] || 0) - 1;
+    } else if (killer === victim) {
+      this.currentGame.kills[killer] =
+        (this.currentGame.kills[killer] || 0) - 1;
     } else {
       this.currentGame.kills[killer] =
         (this.currentGame.kills[killer] || 0) + 1;
