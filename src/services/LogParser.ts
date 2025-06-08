@@ -53,24 +53,27 @@ export class LogParser {
     if (!this.currentGame) return;
 
     const killMatch = line.match(
-      /Kill: (\d+) (\d+) (\d+): (.+) killed (.+) by (.+)/
+      /Kill: (\d+) (\d+) (\d+): (.+?) killed (.+?) by/
     );
-    if (!killMatch || killMatch.length !== 7) return;
+    if (!killMatch || killMatch.length !== 6) return;
 
-    const [, , , , killer, victim, weapon] = killMatch;
+    const [, , , , killer, victim] = killMatch;
     if (!killer || !victim) return;
 
-    const trimmedKiller = killer.trim();
-    const trimmedVictim = victim.trim();
+    const trimmedKiller = this.formatPlayerName(killer.trim());
+    const trimmedVictim = this.formatPlayerName(victim.trim());
 
     const kill: Kill = {
       killer: trimmedKiller,
       victim: trimmedVictim,
-      weapon: weapon.trim(),
     };
 
     this.currentGameKills.push(kill);
     this.processKill(kill);
+  }
+
+  private formatPlayerName(name: string): string {
+    return name.replace(/\\[^\s]*/g, "").trim();
   }
 
   private processKill(kill: Kill): void {

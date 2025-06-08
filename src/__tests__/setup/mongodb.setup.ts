@@ -7,7 +7,7 @@ beforeAll(async () => {
   mongod = await MongoMemoryServer.create();
   const uri = mongod.getUri();
   await mongoose.connect(uri);
-}, 10000); // Aumentando o timeout para 10 segundos
+}, 10000);
 
 afterAll(async () => {
   if (mongoose.connection.db) {
@@ -17,7 +17,7 @@ afterAll(async () => {
   if (mongod) {
     await mongod.stop();
   }
-}, 10000); // Aumentando o timeout para 10 segundos
+}, 10000);
 
 beforeEach(async () => {
   if (mongoose.connection.db) {

@@ -1,10 +1,10 @@
-interface Kill {
+export interface Kill {
   killer: string;
   victim: string;
-  weapon: string;
+  weapon?: string;
 }
 
-interface Game {
+export interface Game {
   total_kills: number;
   players: string[];
   kills: {
@@ -12,8 +12,6 @@ interface Game {
   };
 }
 
-interface GameCollection {
-  [game_id: string]: Game;
+export interface GameCollection {
+  [gameId: string]: Game;
 }
-
-export { Kill, Game, GameCollection };

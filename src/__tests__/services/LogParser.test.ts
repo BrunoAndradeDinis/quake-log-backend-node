@@ -82,7 +82,6 @@ describe("LogParser", () => {
       expect(result).toBeDefined();
       expect(result.game_1).toBeDefined();
 
-      // Game 1 assertions
       expect(result.game_1.total_kills).toBe(4);
       expect(result.game_1.players).toContain("Isgalamido");
       expect(result.game_1.players).toContain("Mocinha");

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GameController } from "../../controllers/GameController";
+import { GameController } from "../../controllers/gameController";
 import { GameService } from "../../services/GameService";
 import "../setup/mongodb.setup";
 
@@ -88,7 +88,7 @@ describe("GameController", () => {
   describe("getGameById", () => {
     it("should return game by id formatted correctly", async () => {
       mockRequest = {
-        params: { id: "1" },
+        params: { gameId: "1" },
       };
 
       (GameService.getGameById as jest.Mock).mockResolvedValue(mockGame);
@@ -113,7 +113,7 @@ describe("GameController", () => {
 
     it("should handle non-existent game", async () => {
       mockRequest = {
-        params: { id: "non_existent" },
+        params: { gameId: "non_existent" },
       };
 
       (GameService.getGameById as jest.Mock).mockResolvedValue(null);
@@ -129,7 +129,7 @@ describe("GameController", () => {
 
     it("should handle errors correctly", async () => {
       mockRequest = {
-        params: { id: "1" },
+        params: { gameId: "1" },
       };
 
       (GameService.getGameById as jest.Mock).mockRejectedValue(
@@ -149,7 +149,7 @@ describe("GameController", () => {
 
     it("should handle game_id prefix correctly", async () => {
       mockRequest = {
-        params: { id: "game_1" },
+        params: { gameId: "game_1" },
       };
 
       (GameService.getGameById as jest.Mock).mockResolvedValue(mockGame);

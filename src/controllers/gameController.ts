@@ -6,7 +6,11 @@ export class GameController {
     try {
       const games = await GameService.getAllGames();
 
-      // Transformar o array em um objeto com o formato especificado
+      if (!games || games.length === 0) {
+        res.status(404).json({ erro: "Nenhum jogo encontrado" });
+        return;
+      }
+
       const formattedGames = games.reduce(
         (acc, game) => {
           acc[game.gameId] = {
@@ -21,16 +25,23 @@ export class GameController {
 
       res.json(formattedGames);
     } catch (error) {
+      console.error("Erro ao buscar jogos:", error);
       res.status(500).json({ erro: "Erro ao buscar jogos" });
     }
   }
 
   static async getGameById(req: Request, res: Response): Promise<void> {
     try {
-      const id = req.params.id;
-      const gameId = id.startsWith("game_") ? id : `game_${id}`;
+      const { gameId } = req.params;
+      if (!gameId) {
+        res.status(400).json({ erro: "ID do jogo não fornecido" });
+        return;
+      }
 
-      const game = await GameService.getGameById(gameId);
+      const formattedGameId = gameId.startsWith("game_")
+        ? gameId
+        : `game_${gameId}`;
+      const game = await GameService.getGameById(formattedGameId);
 
       if (!game) {
         res.status(404).json({ erro: "Jogo não encontrado" });
@@ -47,6 +58,7 @@ export class GameController {
 
       res.json(formattedResponse);
     } catch (error) {
+      console.error("Erro ao buscar jogo específico:", error);
       res.status(500).json({ erro: "Erro ao buscar jogo específico" });
     }
   }
