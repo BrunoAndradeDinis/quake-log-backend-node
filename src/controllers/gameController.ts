@@ -1,47 +1,53 @@
 import { Request, Response } from "express";
-import { LogParser } from "../services/LogParser";
-import path from "path";
+import { GameService } from "../services/GameService";
 
 export class GameController {
-  private static logParser: LogParser = new LogParser();
-  private static games: any = null;
-
-  static async getAllGames(_req: Request, res: Response): Promise<Response> {
+  static async getAllGames(req: Request, res: Response): Promise<void> {
     try {
-      if (!this.games) {
-        const logPath = path.join(__dirname, "../games.log");
-        this.games = await this.logParser.parseLogFile(logPath);
-      }
+      const games = await GameService.getAllGames();
 
-      return res.json(this.games);
+      // Transformar o array em um objeto com o formato especificado
+      const formattedGames = games.reduce(
+        (acc, game) => {
+          acc[game.gameId] = {
+            total_kills: game.total_kills,
+            players: game.players,
+            kills: game.kills,
+          };
+          return acc;
+        },
+        {} as Record<string, any>
+      );
+
+      res.json(formattedGames);
     } catch (error) {
-      return res.status(500).json({ error: "Erro ao buscar dados dos jogos" });
+      res.status(500).json({ erro: "Erro ao buscar jogos" });
     }
   }
 
-  static async getGameById(req: Request, res: Response): Promise<Response> {
+  static async getGameById(req: Request, res: Response): Promise<void> {
     try {
-      if (!this.games) {
-        const logPath = path.join(__dirname, "../games.log");
-        this.games = await this.logParser.parseLogFile(logPath);
-      }
-
-      const gameId = req.params.id.startsWith("game_")
-        ? req.params.id
-        : `game_${req.params.id}`;
-
-      const game = this.games[gameId];
+      const { gameId } = req.params;
+      const game = await GameService.getGameById(
+        gameId.startsWith("game_") ? gameId : `game_${gameId}`
+      );
 
       if (!game) {
-        return res.status(404).json({
-          error: "Jogo não encontrado",
-          message: `Jogo com id '${gameId}' não encontrado`,
-        });
+        res.status(404).json({ erro: "Jogo não encontrado" });
+        return;
       }
 
-      return res.json({ [gameId]: game });
+      const formattedResponse = {
+        [game.gameId]: {
+          total_kills: game.total_kills,
+          players: game.players,
+          kills: game.kills,
+        },
+      };
+
+      res.json(formattedResponse);
     } catch (error) {
-      return res.status(500).json({ error: "Erro ao buscar dados do jogo" });
+      res.status(500).json({ erro: "Erro ao buscar jogo específico" });
     }
   }
 }

@@ -1,14 +1,12 @@
-import { Router, Request, Response } from "express";
-import { GameController } from "../controllers/gameController";
+import { Router } from "express";
+import { GameController } from "../controllers/GameController";
 
 const router = Router();
 
-router.get("/games", async (req: Request, res: Response) => {
-  await GameController.getAllGames(req, res);
-});
+// Get all games
+router.get("/games", GameController.getAllGames);
 
-router.get("/games/:id", async (req: Request, res: Response) => {
-  await GameController.getGameById(req, res);
-});
+// Get game by ID
+router.get("/games/:gameId", GameController.getGameById);
 
 export default router;

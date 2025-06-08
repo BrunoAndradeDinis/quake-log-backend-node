@@ -1,12 +1,23 @@
 import mongoose from "mongoose";
-import { config } from "./environment";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const {
+  MONGODB_USER,
+  MONGODB_PASSWORD,
+  MONGODB_DATABASE,
+  MONGODB_PORT = "27017",
+} = process.env;
+
+const MONGODB_URL = `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@localhost:${MONGODB_PORT}/${MONGODB_DATABASE}?authSource=admin`;
 
 export const connectDB = async (): Promise<void> => {
   try {
-    await mongoose.connect(config.mongodb.url);
-    console.log("MongoDB conectado com sucesso");
+    await mongoose.connect(MONGODB_URL);
+    console.log("MongoDB connected successfully");
   } catch (error) {
-    console.error("Erro ao conectar ao MongoDB:", error);
+    console.error("MongoDB connection error:", error);
     process.exit(1);
   }
 };

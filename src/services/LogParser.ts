@@ -1,5 +1,6 @@
 import fs from "fs";
 import { Kill, Game, GameCollection } from "../types";
+
 export class LogParser {
   private currentGame: Game | null = null;
   private currentGameId: number = 1;

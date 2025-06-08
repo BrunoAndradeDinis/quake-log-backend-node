@@ -16,11 +16,11 @@ if (!process.env.MONGODB_DATABASE)
 
 export const config = {
   api: {
-    port: Number(process.env.PORT),
+    port: process.env.PORT || 3000,
   },
   mongodb: {
     host: process.env.MONGODB_HOST,
-    port: Number(process.env.MONGODB_PORT),
+    port: process.env.MONGODB_PORT || "27017",
     user: process.env.MONGODB_USER,
     password: process.env.MONGODB_PASSWORD,
     database: process.env.MONGODB_DATABASE,
