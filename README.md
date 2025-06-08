@@ -54,3 +54,16 @@ HAVE FUN :)
 
 # Task 1: [x]
 # Task 2: [ ]
+
+## Como ativar o chat paralelo do Copilot
+
+O chat paralelo do GitHub Copilot pode ser acessado diretamente em IDEs compatíveis, como o Visual Studio Code, através da extensão **GitHub Copilot Chat**. Siga os passos abaixo:
+
+1. **Instale a extensão**: No VS Code, vá até a aba de extensões e procure por `GitHub Copilot Chat`. Instale a extensão oficial da GitHub.
+2. **Faça login**: Certifique-se de estar autenticado com sua conta GitHub que possui acesso ao Copilot.
+3. **Abra o chat**: Clique no ícone do Copilot na barra lateral ou use o atalho `Ctrl+I` (Windows/Linux) ou `Cmd+I` (Mac) para abrir o painel de chat.
+4. **Utilize o chat paralelo**: Você pode abrir múltimas abas de chat clicando com o botão direito no painel do Copilot Chat e selecionando "Abrir em nova aba" ou "Split Editor" para chats paralelos.
+
+> **Observação:** O recurso pode estar disponível apenas para assinantes do GitHub Copilot e pode exigir permissões específicas na sua organização.
+
+Para mais detalhes, consulte a [documentação oficial do GitHub Copilot Chat](https://docs.github.com/pt/copilot/getting-started-with-github-copilot/github-copilot-chat).
