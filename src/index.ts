@@ -57,8 +57,9 @@ const startServer = async () => {
 
     app.listen(port, () => {
       console.log(`Servidor rodando na porta ${port}`);
-      console.log(`Health check: http://localhost:${port}/health`);
       console.log(`API Games: http://localhost:${port}/games`);
+      console.log(`Health check: http://localhost:${port}/health`);
+      console.log(`Swagger para consulta: http://localhost:${port}/api-docs`);
     });
   } catch (error) {
     console.error("Erro ao iniciar o servidor:", error);
