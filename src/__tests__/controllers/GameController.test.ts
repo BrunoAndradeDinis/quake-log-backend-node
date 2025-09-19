@@ -5,7 +5,7 @@ import "../setup/mongodb.setup";
 
 jest.mock("../../services/GameService");
 
-describe("GameController", () => {
+describe("Controlador de Jogo", () => {
   let mockRequest: Partial<Request>;
   let mockResponse: Partial<Response>;
   let responseObject: any = {};
@@ -37,8 +37,8 @@ describe("GameController", () => {
     jest.clearAllMocks();
   });
 
-  describe("getAllGames", () => {
-    it("should return all games formatted correctly", async () => {
+  describe("buscarTodosOsJogos - getAllGames", () => {
+    it("deve retornar todos os jogos formatados corretamente", async () => {
       const mockGames = [mockGame, { ...mockGame, gameId: "game_2" }];
 
       (GameService.getAllGames as jest.Mock).mockResolvedValue(mockGames);
@@ -70,7 +70,7 @@ describe("GameController", () => {
       });
     });
 
-    it("should handle errors correctly", async () => {
+    it("deve tratar erros corretamente", async () => {
       (GameService.getAllGames as jest.Mock).mockRejectedValue(
         new Error("Database error")
       );
@@ -85,8 +85,8 @@ describe("GameController", () => {
     });
   });
 
-  describe("getGameById", () => {
-    it("should return game by id formatted correctly", async () => {
+  describe("buscar jogo por id - getGameById", () => {
+    it("deve retornar o jogo pelo id formatado corretamente", async () => {
       mockRequest = {
         params: { gameId: "1" },
       };
@@ -111,7 +111,7 @@ describe("GameController", () => {
       });
     });
 
-    it("should handle non-existent game", async () => {
+    it("deve tratar jogo inexistente", async () => {
       mockRequest = {
         params: { gameId: "non_existent" },
       };
@@ -127,7 +127,7 @@ describe("GameController", () => {
       expect(responseObject).toEqual({ erro: "Jogo não encontrado" });
     });
 
-    it("should handle errors correctly", async () => {
+    it("deve tratar erros corretamente", async () => {
       mockRequest = {
         params: { gameId: "1" },
       };
@@ -147,7 +147,7 @@ describe("GameController", () => {
       });
     });
 
-    it("should handle game_id prefix correctly", async () => {
+    it("deve tratar corretamente o prefixo game_id", async () => {
       mockRequest = {
         params: { gameId: "game_1" },
       };

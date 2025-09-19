@@ -2,7 +2,7 @@ import { GameService } from "../../services/GameService";
 import { GameModel } from "../../models/Game";
 import "../setup/mongodb.setup";
 
-describe("GameService", () => {
+describe("Serviço de Jogo - GameService", () => {
   const mockGame = {
     gameId: "game_1",
     total_kills: 45,
@@ -18,8 +18,8 @@ describe("GameService", () => {
     await GameModel.deleteMany({});
   });
 
-  describe("createGame", () => {
-    it("should create a game successfully", async () => {
+  describe("criar jogo - createGame", () => {
+    it("deve criar um jogo com sucesso", async () => {
       const game = await GameService.createGame(mockGame);
 
       expect(game.gameId).toBe(mockGame.gameId);
@@ -28,20 +28,20 @@ describe("GameService", () => {
       expect(game.kills).toEqual(mockGame.kills);
     });
 
-    it("should not allow duplicate gameId", async () => {
+    it("não deve permitir gameId duplicado", async () => {
       await GameService.createGame(mockGame);
 
       await expect(GameService.createGame(mockGame)).rejects.toThrow();
     });
   });
 
-  describe("getAllGames", () => {
-    it("should return empty array when no games exist", async () => {
+  describe("buscarTodosOsJogos - getAllGames", () => {
+    it("deve retornar array vazio quando não existem jogos", async () => {
       const games = await GameService.getAllGames();
       expect(games).toHaveLength(0);
     });
 
-    it("should return all games", async () => {
+    it("deve retornar todos os jogos", async () => {
       await GameService.createGame(mockGame);
       await GameService.createGame({
         ...mockGame,
@@ -53,13 +53,13 @@ describe("GameService", () => {
     });
   });
 
-  describe("getGameById", () => {
-    it("should return null for non-existent game", async () => {
+  describe("buscarJogoPorId - getGameById", () => {
+    it("deve retornar null para jogo inexistente", async () => {
       const game = await GameService.getGameById("non_existent");
       expect(game).toBeNull();
     });
 
-    it("should return game by id", async () => {
+    it("deve retornar jogo pelo id", async () => {
       await GameService.createGame(mockGame);
 
       const game = await GameService.getGameById(mockGame.gameId);
@@ -68,8 +68,8 @@ describe("GameService", () => {
     });
   });
 
-  describe("createManyGames", () => {
-    it("should create multiple games", async () => {
+  describe("criarVariosJogos - createManyGames", () => {
+    it("deve criar múltiplos jogos", async () => {
       const games = [
         mockGame,
         { ...mockGame, gameId: "game_2" },
@@ -84,8 +84,8 @@ describe("GameService", () => {
     });
   });
 
-  describe("deleteAllGames", () => {
-    it("should delete all games", async () => {
+  describe("deletar todos os jogos - deleteAllGames", () => {
+    it("deve deletar todos os jogos", async () => {
       await GameService.createGame(mockGame);
       await GameService.createGame({ ...mockGame, gameId: "game_2" });
 

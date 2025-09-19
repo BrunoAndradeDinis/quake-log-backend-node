@@ -2,7 +2,7 @@ import { LogParser } from "../../services/LogParser";
 import path from "path";
 import fs from "fs";
 
-describe("LogParser", () => {
+describe("Analisador de Log", () => {
   let logParser: LogParser;
   let mockLogContent: string;
 
@@ -72,8 +72,8 @@ describe("LogParser", () => {
     `;
   });
 
-  describe("parseLogFile", () => {
-    it("should parse log file correctly", async () => {
+  describe("analisarArquivoDeLog", () => {
+    it("deve analisar o arquivo de log corretamente", async () => {
       const tempLogPath = path.join(__dirname, "temp.log");
       fs.writeFileSync(tempLogPath, mockLogContent);
 
@@ -94,7 +94,7 @@ describe("LogParser", () => {
       fs.unlinkSync(tempLogPath);
     });
 
-    it("should handle world kills correctly", async () => {
+    it("deve tratar mortes pelo mundo corretamente", async () => {
       const worldKillLog = `
         0:00 InitGame: \\sv_floodProtect\\1
         15:00 Kill: 1022 2 22: <world> killed Isgalamido by MOD_TRIGGER_HURT
@@ -113,7 +113,7 @@ describe("LogParser", () => {
       fs.unlinkSync(tempLogPath);
     });
 
-    it("should handle multiple games correctly", async () => {
+    it("deve tratar múltiplos jogos corretamente", async () => {
       const multiGameLog = `
         0:00 InitGame: \\sv_floodProtect\\1
         15:00 Kill: 2 3 7: Isgalamido killed Mocinha by MOD_ROCKET_SPLASH
@@ -134,7 +134,7 @@ describe("LogParser", () => {
       fs.unlinkSync(tempLogPath);
     });
 
-    it("should handle empty games correctly", async () => {
+    it("deve tratar jogos vazios corretamente", async () => {
       const emptyGameLog = `
         0:00 InitGame: \\sv_floodProtect\\1
         2:24 ShutdownGame:
